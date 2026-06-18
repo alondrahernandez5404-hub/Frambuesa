@@ -1,53 +1,233 @@
-# Requerimientos del Programa: Resolución del Acertijo de las Cajas
+# Especificación de Requerimientos
 
-## Descripción General
+## Simulador del Acertijo de las Cajas
 
-Desarrollar un programa en lenguaje C capaz de resolver el clásico acertijo de las tres cajas.
+### 1. Descripción
 
-Existen tres cajas que contienen los siguientes contenidos:
+El programa consiste en un simulador interactivo del clásico acertijo de las tres cajas.
 
-* Una caja contiene únicamente chocolates.
-* Una caja contiene únicamente mentas.
-* Una caja contiene una mezcla de chocolates y mentas.
+Existen tres cajas con las siguientes etiquetas:
 
-Cada caja posee una etiqueta que indica su supuesto contenido; sin embargo, **todas las etiquetas son incorrectas**.
+* Chocolates
+* Mentas
+* Chocolates y Mentas
 
-A partir de la extracción de un solo dulce de una de las cajas, es posible determinar el contenido real de cada una.
+Sin embargo, todas las etiquetas son incorrectas. El usuario podrá extraer un único dulce de una caja y posteriormente deberá deducir el contenido real de cada una.
 
-## Requerimientos Funcionales
+El programa deberá permitir verificar la solución y, al finalizar, ofrecer un modo de exploración libre para comprobar el comportamiento de las cajas.
 
-1. El programa deberá solicitar al usuario la etiqueta de la caja de la que se extrajo el dulce. 
-2. El programa deberá solicitar al usuario el tipo de dulce obtenido al realizar la extracción (chocolate o menta).
-3. Con base en la información proporcionada, el programa deberá decirte *sigue intentando* si es que no adivine el contenido correcto(teniendo en cuenta que la caja con la etiqueta de mentas y la que tiene etiqueta de chocolate puede variar dependiendo de que elijo que haya en la caja mixta)
-4. El programa deberá mostrar al usuario la distribución correcta de los contenidos en cada caja.
-5. El programa deberá considerar que todas las etiquetas iniciales son incorrectas y resolver el acertijo respetando esta condición.
-6. Tengo que implementar una funcion para seleccionar las opciones con las flechitas en la terminal.
+---
 
-## Entradas del Programa
+# 2. Requerimientos Funcionales
 
-* Etiqueta de la caja seleccionada:
+## RF-1. Pantalla de bienvenida
 
-  * Chocolates
-  * Mentas
-  * Chocolates y Mentas
+Al iniciar el programa deberá mostrarse:
 
-* Dulce extraído:
+* Una breve explicación del acertijo.
+* Las reglas de la simulación.
+* La indicación de que el usuario debe presionar la tecla Enter para comenzar.
 
-  * Chocolate
-  * Menta
+El programa permanecerá esperando hasta recibir la pulsación de Enter.
 
-## Salida Esperada
+---
 
-El programa deberá indicar el contenido real de cada una de las tres cajas, especificando cuál contiene:
+## RF-2. Generación aleatoria del escenario
 
-* Solo chocolates.
-* Solo mentas.
-* Chocolates y mentas mezclados.
+Al comenzar la simulación:
 
-## Restricciones
+* El programa deberá generar aleatoriamente una de las dos configuraciones posibles que cumplen las condiciones del acertijo.
+* La configuración elegida permanecerá fija durante toda la partida.
+* El usuario no deberá conocer la distribución seleccionada.
 
-* Solo se permite utilizar la información obtenida de una única extracción.
-* Se debe asumir que ninguna etiqueta coincide con el contenido real de la caja.
-* La solución debe implementarse en lenguaje C.
+---
+
+## RF-3. Selección de una caja
+
+El usuario podrá seleccionar una única caja de la cual extraer un dulce.
+
+La interfaz deberá cumplir las siguientes condiciones:
+
+* Mostrar las tres cajas identificadas únicamente por sus etiquetas incorrectas.
+* Permitir navegar entre ellas utilizando las flechas del teclado.
+* Confirmar la selección mediante la tecla Enter.
+* Solo podrá realizarse una extracción durante la partida.
+
+---
+
+## RF-4. Extracción del dulce
+
+Una vez seleccionada la caja:
+
+* El programa deberá mostrar el tipo de dulce obtenido.
+
+Reglas:
+
+* Si la caja contiene únicamente chocolates, siempre se obtendrá un chocolate.
+* Si la caja contiene únicamente mentas, siempre se obtendrá una menta.
+* Si la caja contiene una mezcla de ambos dulces, el programa deberá seleccionar aleatoriamente cuál entregar en cada extracción.
+
+El contenido interno de las cajas no deberá modificarse.
+
+---
+
+## RF-5. Selección de la solución
+
+Después de la extracción, el usuario deberá indicar cuál es el contenido real de cada caja.
+
+El proceso deberá funcionar mediante dos niveles de menú.
+
+### Primer menú
+
+* Mostrar las tres cajas identificadas por sus etiquetas.
+* Permitir navegar con las flechas del teclado.
+* Confirmar la selección con Enter.
+
+### Segundo menú
+
+Una vez elegida una caja:
+
+* Mostrar los contenidos disponibles:
+
+  * Chocolates.
+  * Mentas.
+  * Chocolates y Mentas.
+* Permitir navegar mediante las flechas del teclado.
+* Confirmar la selección con Enter.
+
+---
+
+## RF-6. Restricción de contenidos
+
+Cada contenido podrá asignarse únicamente a una caja.
+
+Cuando un contenido haya sido asignado:
+
+* Deberá eliminarse de las opciones disponibles para las cajas restantes.
+
+Cuando únicamente quede:
+
+* Una caja sin asignar.
+* Un contenido disponible.
+
+El programa deberá realizar la asignación automáticamente.
+
+---
+
+## RF-7. Validación
+
+Al finalizar la asignación:
+
+El programa deberá:
+
+* Comparar la respuesta del usuario con la configuración generada al inicio.
+* Informar claramente si la solución es correcta o incorrecta.
+* Mostrar la distribución real de las cajas.
+
+---
+
+## RF-8. Modo de exploración libre
+
+Después de mostrar el resultado:
+
+El programa deberá conservar la configuración inicial de las cajas y permitir al usuario realizar extracciones ilimitadas.
+
+El objetivo es comprobar experimentalmente el comportamiento de cada caja.
+
+Durante este modo:
+
+* El usuario podrá seleccionar cualquier caja.
+* Extraer tantos dulces como desee.
+* La caja con contenido mixto deberá entregar chocolates o mentas de forma aleatoria en cada extracción.
+* Las cajas con contenido único deberán entregar siempre el mismo tipo de dulce.
+
+El usuario podrá abandonar este modo cuando lo desee.
+
+---
+
+# 3. Requerimientos de Interfaz
+
+## RI-1. Navegación
+
+Todos los menús interactivos deberán utilizar:
+
+* Flecha arriba.
+* Flecha abajo.
+
+La confirmación de cualquier selección deberá realizarse mediante la tecla Enter.
+
+---
+
+## RI-2. Presentación
+
+El programa deberá ejecutarse completamente en modo consola.
+
+La interfaz deberá:
+
+* Ser clara.
+* Mostrar siempre la opción actualmente seleccionada.
+* Evitar solicitar entradas mediante números o texto libre cuando exista un menú navegable.
+
+---
+
+# 4. Requerimientos Técnicos
+
+## RT-1
+
+El programa deberá desarrollarse en lenguaje C.
+
+---
+
+## RT-2
+
+Toda la interacción deberá realizarse mediante la consola.
+
+---
+
+## RT-3
+
+La lógica del acertijo deberá garantizar que:
+
+* Las tres etiquetas sean incorrectas.
+* La distribución seleccionada pertenezca a uno de los dos escenarios válidos definidos para la simulación.
+
+---
+
+## RT-4
+
+La generación aleatoria deberá utilizar una semilla apropiada para evitar obtener siempre el mismo escenario y los mismos resultados en las extracciones aleatorias de la caja mixta.
+
+---
+
+## RT-5
+
+El proyecto deberá utilizar Git como sistema de control de versiones durante todo su desarrollo.
+
+Se deberán cumplir las siguientes condiciones:
+
+* El proyecto deberá inicializarse como un repositorio Git desde el inicio del desarrollo.
+* Los avances deberán registrarse mediante commits descriptivos y periódicos.
+* El repositorio deberá alojarse en una cuenta propia de GitHub.
+* El código fuente deberá mantenerse respaldado y sincronizado con el repositorio remoto.
+* El repositorio deberá incluir todos los archivos necesarios para compilar y ejecutar el proyecto.
+* Se deberá incluir un archivo `README.md` con una descripción del proyecto y las instrucciones básicas para su compilación y ejecución.
+* El historial de commits deberá reflejar las distintas etapas del desarrollo y la implementación de las principales funcionalidades del programa.
+
+---
+
+# 5. Flujo General del Programa
+
+1. Mostrar la introducción y las reglas del acertijo.
+2. Esperar a que el usuario presione Enter.
+3. Generar aleatoriamente una configuración válida de las cajas.
+4. Permitir al usuario seleccionar una caja para realizar una única extracción.
+5. Mostrar el dulce obtenido.
+6. Solicitar al usuario que determine el contenido real de cada caja mediante los menús interactivos.
+7. Validar las respuestas del usuario.
+8. Informar si la solución es correcta o incorrecta.
+9. Mostrar la distribución real de las cajas.
+10. Entrar en el modo de exploración libre.
+11. Permitir extracciones ilimitadas de cualquier caja conservando la configuración inicial.
+12. Finalizar cuando el usuario decida salir del programa.
 
 
