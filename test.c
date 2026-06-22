@@ -1,6 +1,6 @@
-#include <stdio.h>
+//#include <stdio.h>
 
-int main() {
-    printf("Mira, si funciona, guapa, ahora puedes darle muchos besos a tu profesor\n");
-    return 0;
-}
+//int main() {
+    //printf("Mira, si funciona, guapa, ahora puedes darle muchos besos a tu profesor\n");
+  //  return 0;
+//}

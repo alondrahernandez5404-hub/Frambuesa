@@ -1,0 +1,2 @@
+/*Declaracion de menus.
+*/

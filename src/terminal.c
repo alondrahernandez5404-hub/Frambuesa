@@ -1,0 +1,2 @@
+/*Permite leer las teclas en la terminal
+y restaurarlas cuando ya no se usen en terminal*/
