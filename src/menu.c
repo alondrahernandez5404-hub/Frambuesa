@@ -52,9 +52,11 @@ int menuVertical(
         {
             if (i == seleccion)
             {
-                printf("%s%s", VERDE, NEGRITA);
-                printf("      ➜ [ %s ]\n", opciones[i]);
-                printf("%s", RESET);
+                printf("%s%s➜ [ %s ]%s\n",
+       VERDE,
+       NEGRITA,
+       opciones[i],
+       RESET);
             }
             else
             {
@@ -83,4 +85,26 @@ int menuVertical(
             return seleccion;
         }
     }
+}
+int seleccionarCaja(void)
+{
+    const char *opciones[] =
+    {
+        "Caja etiquetada: Chocolates",
+        "Caja etiquetada: Mentas",
+        "Caja etiquetada: Chocolates y Mentas"
+    };
+
+    return menuVertical(opciones, 3);
+}
+Contenido seleccionarContenido(void)
+{
+    const char *opciones[] =
+    {
+        "Chocolates",
+        "Mentas",
+        "Chocolates y Mentas"
+    };
+
+    return (Contenido) menuVertical(opciones, 3);
 }

@@ -32,13 +32,6 @@ int main(void)
 {
     Caja cajas[3];
 
-    const char *opciones[] =
-    {
-        "Caja con etiqueta: Chocolates",
-        "Caja con etiqueta: Mentas",
-        "Caja con etiqueta: Chocolates y Mentas"
-    };
-
     int cajaSeleccionada;
     Contenido dulce;
 

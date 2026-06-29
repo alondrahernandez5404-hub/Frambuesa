@@ -63,4 +63,18 @@ void mostrarSolucion(Caja cajas[]);
  */
 void mostrarCaja(Caja caja);
 
+/*
+ * Permite al usuario resolver el acertijo.
+ */
+void resolverAcertijo(
+    Caja cajas[]
+);
+
+/*
+ * Inicia el modo de exploración.
+ */
+void modoExploracion(
+    Caja cajas[]
+);
+
 #endif

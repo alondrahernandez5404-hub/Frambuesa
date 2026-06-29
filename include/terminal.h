@@ -35,4 +35,6 @@ int leerTecla(void);
  */
 void limpiarPantalla(void);
 
+void pausa(void);
+
 #endif

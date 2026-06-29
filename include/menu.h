@@ -3,7 +3,7 @@
 
 #ifndef MENU_H
 #define MENU_H
-
+#include "game.h"
 /*
  * Muestra un menú vertical navegable.
  *
@@ -13,5 +13,15 @@ int menuVertical(
     const char *opciones[],
     int cantidad
 );
+
+/*
+ * Permite elegir una caja.
+ */
+int seleccionarCaja(void);
+
+/*
+ * Permite elegir un contenido.
+ */
+Contenido seleccionarContenido(void);
 
 #endif
