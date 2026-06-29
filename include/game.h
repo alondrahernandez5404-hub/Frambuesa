@@ -58,4 +58,9 @@ int validarSolucion(
  */
 void mostrarSolucion(Caja cajas[]);
 
+/*
+ * Muestra la información de una caja.
+ */
+void mostrarCaja(Caja caja);
+
 #endif
