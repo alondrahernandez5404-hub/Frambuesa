@@ -20,6 +20,7 @@ mostrar solucion*/
 #include <time.h>
 
 #include "../include/game.h"
+#include "../include/menu.h"
 
 
 const char *contenidoATexto(Contenido contenido)
@@ -122,12 +123,94 @@ void mostrarSolucion(Caja cajas[])
     int i;
 
     printf("\n=========================================\n");
-    printf("     SOLUCION DEL ACERTIJO\n");
+    printf("       SOLUCION DEL ACERTIJO\n");
     printf("=========================================\n\n");
 
     for (i = 0; i < 3; i++)
     {
+        printf("Caja %d\n", i + 1);
+
         mostrarCaja(cajas[i]);
-        printf("\n");
+
+        printf("-----------------------------------------\n");
     }
+}
+
+void resolverAcertijo(Caja cajas[])
+{
+    Contenido respuesta[3];
+
+    int caja;
+
+    printf("\n");
+    printf("=========================================\n");
+    printf("      RESUELVE EL ACERTIJO\n");
+    printf("=========================================\n\n");
+
+    printf("Ahora debes indicar el contenido real\n");
+    printf("de cada una de las cajas.\n\n");
+
+    /* -------- Primera caja -------- */
+
+    printf("Selecciona la PRIMERA caja.\n");
+
+    caja = seleccionarCaja();
+
+    printf("\nElegiste la caja etiquetada como: %s\n",
+           contenidoATexto(cajas[caja].etiqueta));
+
+    printf("\n¿Que contiene realmente?\n");
+
+    respuesta[caja] = seleccionarContenido();
+
+    printf("\nAsignaste: %s\n\n",
+           contenidoATexto(respuesta[caja]));
+
+    /* -------- Segunda caja -------- */
+
+    printf("Selecciona la SEGUNDA caja.\n");
+
+    caja = seleccionarCaja();
+
+    printf("\nElegiste la caja etiquetada como: %s\n",
+           contenidoATexto(cajas[caja].etiqueta));
+
+    printf("\n¿Que contiene realmente?\n");
+
+    respuesta[caja] = seleccionarContenido();
+
+    printf("\nAsignaste: %s\n\n",
+           contenidoATexto(respuesta[caja]));
+
+    /* -------- Tercera caja -------- */
+
+    printf("Selecciona la TERCERA caja.\n");
+
+    caja = seleccionarCaja();
+
+    printf("\nElegiste la caja etiquetada como: %s\n",
+           contenidoATexto(cajas[caja].etiqueta));
+
+    printf("\n¿Que contiene realmente?\n");
+
+    respuesta[caja] = seleccionarContenido();
+
+    printf("\nAsignaste: %s\n\n",
+           contenidoATexto(respuesta[caja]));
+
+    /* -------- Validación -------- */
+
+    printf("\n=========================================\n");
+
+    if (validarSolucion(cajas, respuesta))
+    {
+        printf("¡¡FELICIDADES!!\n");
+        printf("Resolviste correctamente el acertijo.\n");
+    }
+    else
+    {
+        printf("La respuesta no es correcta.\n");
+    }
+
+    mostrarSolucion(cajas);
 }

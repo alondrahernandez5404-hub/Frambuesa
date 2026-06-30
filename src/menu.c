@@ -40,11 +40,13 @@ int menuVertical(
 
         printf("\n");
 
-        printf("%s", AMARILLO);
-        printf("Seleccione una opción\n\n");
-        printf("↑ ↓  Moverse por el menú\n");
-        printf("Enter  Seleccionar\n");
-        printf("%s", RESET);
+    printf("%s", AMARILLO);
+
+printf("Use las flechas para moverse.\n");
+printf("Presione Enter para seleccionar.\n");
+
+printf("%s", RESET);
+printf("\n");
 
         printf("\n");
 
@@ -58,10 +60,10 @@ int menuVertical(
        opciones[i],
        RESET);
             }
-            else
-            {
-                printf("        %s\n", opciones[i]);
-            }
+         else
+{
+    printf("        [ %s ]\n", opciones[i]);
+}
         }
 
         tecla = leerTecla();
@@ -95,8 +97,15 @@ int seleccionarCaja(void)
         "Caja etiquetada: Chocolates y Mentas"
     };
 
-    return menuVertical(opciones, 3);
+activarModoRaw();
+
+int opcion = menuVertical(opciones, 3);
+
+restaurarTerminal();
+
+return opcion;
 }
+
 Contenido seleccionarContenido(void)
 {
     const char *opciones[] =
@@ -106,5 +115,11 @@ Contenido seleccionarContenido(void)
         "Chocolates y Mentas"
     };
 
-    return (Contenido) menuVertical(opciones, 3);
+activarModoRaw();
+
+int opcion = menuVertical(opciones, 3);
+
+restaurarTerminal();
+
+return (Contenido) opcion;
 }

@@ -51,11 +51,7 @@ int main(void)
 
     generarEscenario(cajas);
 
-    activarModoRaw();
-
-    cajaSeleccionada = menuVertical(opciones, 3);
-
-    restaurarTerminal();
+  cajaSeleccionada = seleccionarCaja();
 
     limpiarPantalla();
 
@@ -68,11 +64,17 @@ int main(void)
     printf("Elegiste la caja con etiqueta: %s\n",
            contenidoATexto(cajas[cajaSeleccionada].etiqueta));
 
-    printf("Obtuviste: %s\n\n",
-           contenidoATexto(dulce));
+       printf("Obtuviste: %s\n\n",
+       contenidoATexto(dulce));
 
-    printf("Presiona Enter para finalizar...");
-    getchar();
+       printf("Presiona Enter para continuar...");
+       getchar();
 
-    return 0;
+       resolverAcertijo(cajas);
+
+       printf("\n");
+       printf("Presiona Enter para finalizar...");
+       getchar();
+
+return 0;
 }
