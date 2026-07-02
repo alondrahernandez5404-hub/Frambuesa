@@ -123,3 +123,85 @@ restaurarTerminal();
 
 return (Contenido) opcion;
 }
+
+int menuVerticalDisponible(
+    const char *opciones[],
+    int disponible[],
+    int cantidad
+)
+{
+    int seleccion = 0;
+    int tecla;
+    int i;
+
+    /* Buscar la primera opción disponible */
+
+    while (!disponible[seleccion])
+    {
+        seleccion++;
+    }
+
+    while (1)
+    {
+        limpiarPantalla();
+
+        printf("========================================\n");
+        printf("        ACERTIJO DE LAS CAJAS\n");
+        printf("========================================\n\n");
+
+        printf("Use las flechas para moverse.\n");
+        printf("Presione Enter para seleccionar.\n\n");
+
+        for (i = 0; i < cantidad; i++)
+        {
+            if (!disponible[i])
+            {
+                continue;
+            }
+
+            if (i == seleccion)
+            {
+                printf("➜ [ %s ]\n", opciones[i]);
+            }
+            else
+            {
+                printf("    %s\n", opciones[i]);
+            }
+        }
+
+        tecla = leerTecla();
+
+        if (tecla == TECLA_ARRIBA)
+        {
+            do
+            {
+                seleccion--;
+
+                if (seleccion < 0)
+                {
+                    seleccion = cantidad - 1;
+                }
+
+            } while (!disponible[seleccion]);
+        }
+
+        else if (tecla == TECLA_ABAJO)
+        {
+            do
+            {
+                seleccion++;
+
+                if (seleccion >= cantidad)
+                {
+                    seleccion = 0;
+                }
+
+            } while (!disponible[seleccion]);
+        }
+
+        else if (tecla == TECLA_ENTER)
+        {
+            return seleccion;
+        }
+    }
+}

@@ -21,7 +21,7 @@ mostrar solucion*/
 
 #include "../include/game.h"
 #include "../include/menu.h"
-
+#include "../include/terminal.h"
 
 const char *contenidoATexto(Contenido contenido)
 {
@@ -136,11 +136,35 @@ void mostrarSolucion(Caja cajas[])
     }
 }
 
+void modoExploracion(Caja cajas[])
+{
+
+} 
+
 void resolverAcertijo(Caja cajas[])
 {
-    Contenido respuesta[3];
+Contenido respuesta[3];
 
-    int caja;
+int caja;
+int i;
+int ultimaCaja = -1;
+int ultimoContenido = -1;
+
+int cajaDisponible[3] =
+{
+    1,
+    1,
+    1
+};
+
+/* Indica qué contenidos siguen disponibles */
+
+int contenidoDisponible[3] =
+{
+    1,
+    1,
+    1
+};
 
     printf("\n");
     printf("=========================================\n");
@@ -150,67 +174,98 @@ void resolverAcertijo(Caja cajas[])
     printf("Ahora debes indicar el contenido real\n");
     printf("de cada una de las cajas.\n\n");
 
-    /* -------- Primera caja -------- */
 
-    printf("Selecciona la PRIMERA caja.\n");
+for (i = 0; i < 2; i++)
+{
+    printf("-----------------------------------------\n");
+    printf("Selecciona la caja %d.\n\n", i + 1);
 
-    caja = seleccionarCaja();
+    activarModoRaw();
 
-    printf("\nElegiste la caja etiquetada como: %s\n",
-           contenidoATexto(cajas[caja].etiqueta));
+    caja = menuVerticalDisponible(
+        (const char *[])
+        {
+            "Caja etiquetada: Chocolates",
+            "Caja etiquetada: Mentas",
+            "Caja etiquetada: Chocolates y Mentas"
+        },
+        cajaDisponible,
+        3
+    );
 
-    printf("\n¿Que contiene realmente?\n");
+    restaurarTerminal();
 
-    respuesta[caja] = seleccionarContenido();
-
-    printf("\nAsignaste: %s\n\n",
-           contenidoATexto(respuesta[caja]));
-
-    /* -------- Segunda caja -------- */
-
-    printf("Selecciona la SEGUNDA caja.\n");
-
-    caja = seleccionarCaja();
-
-    printf("\nElegiste la caja etiquetada como: %s\n",
-           contenidoATexto(cajas[caja].etiqueta));
-
-    printf("\n¿Que contiene realmente?\n");
-
-    respuesta[caja] = seleccionarContenido();
-
-    printf("\nAsignaste: %s\n\n",
-           contenidoATexto(respuesta[caja]));
-
-    /* -------- Tercera caja -------- */
-
-    printf("Selecciona la TERCERA caja.\n");
-
-    caja = seleccionarCaja();
+    cajaDisponible[caja] = 0;
 
     printf("\nElegiste la caja etiquetada como: %s\n",
            contenidoATexto(cajas[caja].etiqueta));
 
-    printf("\n¿Que contiene realmente?\n");
+    printf("\n¿Que contiene realmente?\n\n");
 
-    respuesta[caja] = seleccionarContenido();
+    activarModoRaw();
+
+    respuesta[caja] = (Contenido) menuVerticalDisponible(
+        (const char *[])
+        {
+            "Chocolates",
+            "Mentas",
+            "Chocolates y Mentas"
+        },
+        contenidoDisponible,
+        3
+    );
+
+    restaurarTerminal();
+
+    contenidoDisponible[respuesta[caja]] = 0;
 
     printf("\nAsignaste: %s\n\n",
            contenidoATexto(respuesta[caja]));
+}
+
+for (i = 0; i < 3; i++)
+{
+    if (cajaDisponible[i])
+    {
+        ultimaCaja = i;
+    }
+
+    if (contenidoDisponible[i])
+    {
+        ultimoContenido = i;
+    }
+}
+
+respuesta[ultimaCaja] = (Contenido) ultimoContenido;
+
+printf("-----------------------------------------\n");
+printf("Última asignación automática.\n\n");
+
+printf("Caja: %s\n",
+       contenidoATexto(cajas[ultimaCaja].etiqueta));
+
+printf("Contenido: %s\n\n",
+       contenidoATexto(respuesta[ultimaCaja]));
 
     /* -------- Validación -------- */
 
     printf("\n=========================================\n");
 
-    if (validarSolucion(cajas, respuesta))
-    {
-        printf("¡¡FELICIDADES!!\n");
-        printf("Resolviste correctamente el acertijo.\n");
-    }
-    else
-    {
-        printf("La respuesta no es correcta.\n");
-    }
+   if (validarSolucion(cajas, respuesta))
+{
+    printf("¡¡FELICIDADES!!\n");
+    printf("Resolviste correctamente el acertijo.\n");
+}
+else
+{
+    printf("La respuesta no es correcta.\n");
+}
 
-    mostrarSolucion(cajas);
+mostrarSolucion(cajas);
+
+printf("\n");
+printf("Presiona Enter para entrar al modo exploracion...");
+getchar();
+
+modoExploracion(cajas);
 }

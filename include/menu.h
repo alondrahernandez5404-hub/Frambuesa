@@ -24,4 +24,13 @@ int seleccionarCaja(void);
  */
 Contenido seleccionarContenido(void);
 
+/*
+ * Permite seleccionar una opción
+ * ignorando aquellas que ya fueron utilizadas.
+ */
+int menuVerticalDisponible(
+    const char *opciones[],
+    int disponible[],
+    int cantidad
+);
 #endif
