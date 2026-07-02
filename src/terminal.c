@@ -4,7 +4,7 @@ y restaurarlas cuando ya no se usen en terminal*/
 #include <stdio.h>
 #include <unistd.h>
 #include <termios.h>
-
+#include <stdlib.h>
 #include "../include/terminal.h"
 static struct termios terminalOriginal;
 
@@ -63,8 +63,5 @@ int leerTecla(void)
 
 void limpiarPantalla(void)
 {
-    printf("\033[2J");
-    printf("\033[H");
-
-    fflush(stdout);
+    system("clear");
 }

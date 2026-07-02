@@ -20,6 +20,7 @@
 #define NEGRITA    "\033[1m"
 
 int menuVertical(
+    const char *titulo,
     const char *opciones[],
     int cantidad
 )
@@ -32,38 +33,26 @@ int menuVertical(
     {
         limpiarPantalla();
 
-        printf("%s%s", CIAN, NEGRITA);
-        printf("========================================\n");
-        printf("        ACERTIJO DE LAS CAJAS\n");
-        printf("========================================\n");
-        printf("%s", RESET);
-
-        printf("\n");
-
-    printf("%s", AMARILLO);
-
-printf("Use las flechas para moverse.\n");
-printf("Presione Enter para seleccionar.\n");
-
-printf("%s", RESET);
-printf("\n");
-
-        printf("\n");
+printf("Use las flechas ↑ ↓ para moverse.\n");
+printf("Presione Enter para seleccionar.\n\n");
+printf("----------------------------------------\n");
+printf("%s\n", titulo);
+printf("----------------------------------------\n");
 
         for (i = 0; i < cantidad; i++)
         {
             if (i == seleccion)
             {
                 printf("%s%s➜ [ %s ]%s\n",
-       VERDE,
-       NEGRITA,
-       opciones[i],
-       RESET);
+                       VERDE,
+                       NEGRITA,
+                       opciones[i],
+                       RESET);
             }
-         else
-{
-    printf("        [ %s ]\n", opciones[i]);
-}
+            else
+            {
+                printf("  [ %s ]\n", opciones[i]);
+            }
         }
 
         tecla = leerTecla();
@@ -88,6 +77,7 @@ printf("\n");
         }
     }
 }
+
 int seleccionarCaja(void)
 {
     const char *opciones[] =
@@ -145,12 +135,10 @@ int menuVerticalDisponible(
     {
         limpiarPantalla();
 
-        printf("========================================\n");
-        printf("        ACERTIJO DE LAS CAJAS\n");
-        printf("========================================\n\n");
-
-        printf("Use las flechas para moverse.\n");
-        printf("Presione Enter para seleccionar.\n\n");
+        printf("----------------------------------------\n");
+        printf("Use las flechas ↑ ↓ para moverse.\n");
+        printf("Presione Enter para seleccionar.\n");
+        printf("----------------------------------------\n\n");
 
         for (i = 0; i < cantidad; i++)
         {
@@ -161,11 +149,14 @@ int menuVerticalDisponible(
 
             if (i == seleccion)
             {
-                printf("➜ [ %s ]\n", opciones[i]);
-            }
+                printf("%s%s➜ [ %s ]%s\n",
+                VERDE,
+                NEGRITA,
+                opciones[i],
+                 RESET);            }
             else
             {
-                printf("    %s\n", opciones[i]);
+               printf("  [ %s ]\n", opciones[i]);
             }
         }
 

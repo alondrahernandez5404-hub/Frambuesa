@@ -71,19 +71,28 @@ void generarEscenario(Caja cajas[])
 
 Contenido extraerDulce(Caja caja)
 {
+    printf("\n[DEBUG] Contenido real de la caja: %s\n",
+           contenidoATexto(caja.contenidoReal));
+
     if (caja.contenidoReal == CHOCOLATES)
     {
+        printf("[DEBUG] Caja de chocolates\n");
         return CHOCOLATES;
     }
 
     if (caja.contenidoReal == MENTAS)
     {
+        printf("[DEBUG] Caja de mentas\n");
         return MENTAS;
     }
 
-    /* Si la caja es mixta, entregar un dulce aleatorio */
+    printf("[DEBUG] Caja mixta\n");
 
-    if (rand() % 2 == 0)
+    int numero = rand() % 2;
+
+    printf("[DEBUG] rand() %% 2 = %d\n", numero);
+
+    if (numero == 0)
     {
         return CHOCOLATES;
     }
@@ -138,8 +147,48 @@ void mostrarSolucion(Caja cajas[])
 
 void modoExploracion(Caja cajas[])
 {
+    const char *opciones[] =
+    {
+        "Extraer un dulce",
+        "Salir"
+    };
 
-} 
+    int opcion;
+    int caja;
+    Contenido dulce;
+
+    while (1)
+    {
+        activarModoRaw();
+
+        opcion = menuVertical(opciones, 2);
+
+        restaurarTerminal();
+
+        if (opcion == 1)
+        {
+            break;
+        }
+
+        caja = seleccionarCaja();
+
+        dulce = extraerDulce(cajas[caja]);
+
+        printf("\n");
+        printf("=========================================\n");
+        printf("      MODO EXPLORACION\n");
+        printf("=========================================\n\n");
+
+        printf("Caja elegida: %s\n",
+               contenidoATexto(cajas[caja].etiqueta));
+
+        printf("Dulce obtenido: %s\n\n",
+               contenidoATexto(dulce));
+
+        printf("Presiona Enter para continuar...");
+        getchar();
+    }
+}
 
 void resolverAcertijo(Caja cajas[])
 {
